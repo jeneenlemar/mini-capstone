@@ -2,24 +2,71 @@ class Api::ProductsController < ApplicationController
 
   
   def index
-    #change to allow for search by name
-    # can I pass hard code name first? - done
-    # can I do with simple query
-    #with param
+    @products = Product.all
+
+    if params[:search]
+      @products = @products.where("name iLIKE ?", "%#{params[:search]}%")
+    end
+
+    if params[:discount] #here we are looking for discount to be true
+      @products = @products.where("price < ?", 10) #pull out from the array, any item that price is less than 10
+    end
 
 
-# index allows search by name
-    # @products = Product.where("name LIKE ?", "%#{params[:search]}%")
+    #This was from class and left in as reference
 
-    #index allow uer to siplay all products under 10 dollars
+    # if params[:sort] == "price" && params[:sort_order] == "asc"  
+    #   @products = @products.order(:price)
+    # elsif params[:sort] == "price" && params[:sort_order] == "desc"
+    #   @products = @products.order(price: :desc)
+    # else
+    #   @products = @products.order(:id)
+    # end
 
-  @products = Product.where("price < ?", params[:price])
+    #did this version below because the order of this one made all the ones below NOT WORK!!!!!!!
 
 
-  
+    if params[:sort] == "price" && params[:sort_order] == "asc"  
+      @products = @products.order(:price)
+    else params[:sort] == "price" && params[:sort_order] == "desc"
+      @products = @products.order(price: :desc)
+    end
 
-    # @products = Product.where(name: "pants")
-    render "index.json.jb"
+
+
+    
+    ####### KEEP THIS ONE LAST so the else will trigger after ALL items above have checked, but tested FALSE!!!!
+
+    
+    if params[:title]
+      @products = @products.where("name iLIKE ?", "T%")
+    end
+
+    if params[:record] == "created_at" && params[:record_order] == "asc"  
+      @products = @products.order(:created_at)
+    elsif params[:record] == "created_at" && params[:record_order] == "desc"
+      @products = @products.order(created_at: :desc)
+    else
+      @products = @products.order(:id)
+    end
+
+    
+
+    #####count not working, try later!
+
+    # if params[:count]
+    #   @products = @products.where("orders_count = ?" params[:count])
+    # end
+
+
+
+
+
+
+
+
+
+    render 'index.json.jb'
   end
 
   def show
