@@ -32,20 +32,22 @@ class Api::ProductsController < ApplicationController
       @products = @products.order(price: :desc)
     end
 
+    #Get all products with a title that begins with "T".
 
-
-    
-    ####### KEEP THIS ONE LAST so the else will trigger after ALL items above have checked, but tested FALSE!!!!
-
-    
     if params[:title]
       @products = @products.where("name iLIKE ?", "T%")
     end
 
+    
+    ####### KEEP THIS ONE LAST so the else will trigger after ALL items above have checked, but tested FALSE!!!!
+
+
+    
+    # et the last 3 products entered into the database. 
     if params[:record] == "created_at" && params[:record_order] == "asc"  
       @products = @products.order(:created_at)
     elsif params[:record] == "created_at" && params[:record_order] == "desc"
-      @products = @products.order(created_at: :desc)
+      @products = @products.order(created_at: :desc).limit(3)
     else
       @products = @products.order(:id)
     end
