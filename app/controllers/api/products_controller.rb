@@ -2,7 +2,23 @@ class Api::ProductsController < ApplicationController
 
   
   def index
-    @products = Product.all
+    #change to allow for search by name
+    # can I pass hard code name first? - done
+    # can I do with simple query
+    #with param
+
+
+# index allows search by name
+    # @products = Product.where("name LIKE ?", "%#{params[:search]}%")
+
+    #index allow uer to siplay all products under 10 dollars
+
+  @products = Product.where("price < ?", params[:price])
+
+
+  
+
+    # @products = Product.where(name: "pants")
     render "index.json.jb"
   end
 
@@ -22,7 +38,18 @@ class Api::ProductsController < ApplicationController
       )
     @product.save
 
-    render "show.json.jb"
+    #happy path
+    if @product.save
+
+      render "show.json.jb"
+
+    #sad path
+    else
+
+      render json: {errors: @product.errors.full_messages}, status: :unprocessable_entity
+    end
+
+    
   end
 
   def update
@@ -34,7 +61,17 @@ class Api::ProductsController < ApplicationController
 
     @product.save
 
-    render "show.json.jb"
+    #happy path
+
+    if @product.save
+
+      render "show.json.jb"
+
+    #sad path
+    else
+
+      render json: {errors: @product.errors.full_messages}, status: :unprocessable_entity
+    end
 
   end
 
@@ -42,6 +79,13 @@ class Api::ProductsController < ApplicationController
     @product = Product.find_by(id: params["id"])
     @product.destroy
     render json: {message: "item successfully deleted"}
+  end
+
+
+  def path_control_error
+    #put repetitive code here!!!!!!!!!
+
+
   end
 
   # def all_products_method

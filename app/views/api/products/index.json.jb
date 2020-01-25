@@ -1,11 +1,12 @@
 @products.map do |product|
-  {
-    id: product.id,
-    name: product.name,
-    price: product.price,
-    description: product.description,
-    image_url: product.image_url
-  }
+  render partial: "product.json.jb", locals: {product: product}
 end
 
-
+# Below was here before moving redundant code to partial file called _product.json.jb
+  # {
+  #   id: product.id,
+  #   name: product.name,
+  #   price: product.price,
+  #   description: product.description,
+  #   image_url: product.image_url
+  # }
