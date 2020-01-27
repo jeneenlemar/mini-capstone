@@ -32,12 +32,25 @@ class Api::ProductsController < ApplicationController
       @products = @products.order(price: :desc)
     end
 
+
+#####count - NOT WORKING!!!!!!!
+
+    # if params[:count]
+    #   @product_count = @products.count
+    # end
+
+    
     #Get all products with a title that begins with "T".
 
     if params[:title]
       @products = @products.where("name iLIKE ?", "T%")
     end
 
+    #Get average price of all products - NOT WORKING
+
+    # if params[:average]
+    #   @products = @products.average()
+    # end
     
     ####### KEEP THIS ONE LAST so the else will trigger after ALL items above have checked, but tested FALSE!!!!
 
@@ -48,17 +61,13 @@ class Api::ProductsController < ApplicationController
       @products = @products.order(:created_at)
     elsif params[:record] == "created_at" && params[:record_order] == "desc"
       @products = @products.order(created_at: :desc).limit(3)
-    else
-      @products = @products.order(:id)
+    # else
+    #   @products = @products.order(:id)
     end
 
     
 
-    #####count not working, try later!
-
-    # if params[:count]
-    #   @products = @products.where("orders_count = ?" params[:count])
-    # end
+    
 
 
 
@@ -130,12 +139,6 @@ class Api::ProductsController < ApplicationController
     render json: {message: "item successfully deleted"}
   end
 
-
-  def path_control_error
-    #put repetitive code here!!!!!!!!!
-
-
-  end
 
   # def all_products_method
   #   @products = Product.all
