@@ -92,7 +92,7 @@ class Api::ProductsController < ApplicationController
       name: params["name"],
       price: params["price"],
       description: params["description"],
-      image_url: params["image_url"]
+      # image_url: params["image_url"] - remove this because we took the image_url attribute out of the product model!
       )
     @product.save
 
@@ -115,7 +115,7 @@ class Api::ProductsController < ApplicationController
     @product.name = params[:name] || @product.name
     @product.price = params[:price] || @product.price
     @product.description = params[:description] || @product.description
-    @product.image_url = params[:image_url] || @product.image_url
+    # @product.image_url = params[:image_url] || @product.image_url - remove this becuase we removed image_url attribute from the product model
 
     @product.save
 

@@ -3,8 +3,13 @@ class Product < ApplicationRecord
   validates :name, uniqueness: true
   validates :price, numericality: { greater_than: 0 }
   validates :description, length: { in: 10..500 }  
+#association method!
+  has_many :images
 
 
+  #association method!
+   belongs_to :supplier
+   #original under hood came from a find_by statement
 
 
   def is_discounted?
@@ -24,6 +29,10 @@ class Product < ApplicationRecord
     
   end
   end
+
+  
+
+
 
 
 end
