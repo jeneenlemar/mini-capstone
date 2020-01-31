@@ -1,5 +1,6 @@
 class Api::ProductsController < ApplicationController
 
+  # before_action :authenticate_admin, except: [:index, :show] 
   
   def index
     @products = Product.all
@@ -65,24 +66,18 @@ class Api::ProductsController < ApplicationController
     #   @products = @products.order(:id)
     end
 
-    
-
-    
-
-
-
-
-
-
-
-
-
     render 'index.json.jb'
   end
 
   def show
+    if current_user
+
     @product = Product.find_by(id: params["id"])
     render "show.json.jb"
+
+    else
+      render json: {}, status: :unauthorized
+    end
   end
 
   #Note - I am going to RENDER to the show file since I want to see the same things as I did for the individual product!!!!
@@ -92,6 +87,8 @@ class Api::ProductsController < ApplicationController
       name: params["name"],
       price: params["price"],
       description: params["description"],
+      in_stock: params["in_stock"],
+      supplier_id: params["supplier_id"]
       # image_url: params["image_url"] - remove this because we took the image_url attribute out of the product model!
       )
     @product.save

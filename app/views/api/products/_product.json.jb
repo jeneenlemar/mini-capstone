@@ -9,7 +9,8 @@
   formatted: {
     is_discounted?: product.is_discounted?,
     tax: product.tax,
-    total: product.total
+    total: product.total,
+    current_user: current_user
 
   }
 }
