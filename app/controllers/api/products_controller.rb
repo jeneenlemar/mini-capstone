@@ -5,6 +5,14 @@ class Api::ProductsController < ApplicationController
   def index
     @products = Product.all
 
+    if params[:category]
+      category = Category.find_by(name: params[:category])
+      @products = category.products
+    end
+
+
+
+
     if params[:search]
       @products = @products.where("name iLIKE ?", "%#{params[:search]}%")
     end

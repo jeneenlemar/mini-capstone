@@ -41,3 +41,6 @@
 #   product_id: 7
 #   }
 # ])
+
+CartedProduct.create(user_id: 1, product_id: 1, quantity: 1, status: "carted", order_id: nil)
+CartedProduct.create(user_id: 2, product_id: 2, quantity: 1, status: "carted", order_id: nil)

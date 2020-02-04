@@ -5,12 +5,13 @@
   description: product.description,
   supplier_name: product.supplier.name,
   images: product.images,
+  categories: product.categories,
 
   formatted: {
     is_discounted?: product.is_discounted?,
     tax: product.tax,
     total: product.total,
-    current_user: current_user
-
+    current_user: current_user,
+  
   }
 }

@@ -25,6 +25,11 @@ Rails.application.routes.draw do
     post "/users" => "users#create"
 
     post "/sessions" => "sessions#create"
+
+    get "/carted_products" => "carted_products#index"
+    post "/carted_products" => "carted_products#create"
+
+
     # get "/all_products_url" => "products#all_products_method"
     # get "/product_url" => "products#product_method"
     # get "/product2_url" => "products#product_method"
