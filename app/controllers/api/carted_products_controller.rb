@@ -14,6 +14,7 @@ class Api::CartedProductsController < ApplicationController
       quantity: params[:quantity],
       user_id: current_user.id,
       status: "carted"
+      
       )
 
 

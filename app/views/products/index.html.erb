@@ -1,0 +1,30 @@
+
+<div class="jumbotron">
+  <h1 class="display-4">Funky Store</h1>
+  <p class="lead">A fine collection of cool products!</p>
+  <hr class="my-4">
+  <p>Go ahead, browse and buy... you know you want to!</p>
+  <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+</div>
+
+<div class="card-columns">
+  <% @products.each do |product| %>
+  <div class="card">
+    <img src="..." class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title"><%= product.name%> </h5>
+      <p class="card-text"><%= product.description%></p>
+      <a href="/products/<%= product.id %>" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Details</a>
+      
+    </div>
+  </div>
+
+  <% end %>
+</div>
+
+
+
+
+
+
+
